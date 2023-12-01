@@ -1,5 +1,5 @@
 import express from "express";
-import { dbConnection } from "./dbConnect.js";
+import { dbConnection } from "./databaseConnect.js";
 import { checkIfElevatorDocumentExist } from "./elevatorModel.js";
 import routes from "./routes.js";
 
