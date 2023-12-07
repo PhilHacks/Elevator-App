@@ -1,15 +1,15 @@
 import mongoose, { get } from "mongoose";
-import { createElevatorsInDB } from "./crudOperations.js";
+import { createElevatorsInDB } from "./elevatorDataOperations.js";
 
 const elevatorSchema = new mongoose.Schema({
-  elevatorId: String,
+  elevatorNumber: Number,
   currentFloor: Number,
   currentStatus: {
     type: String,
     enum: ["idle", "moving_up", "moving_down"],
   },
   destinationFloor: Number,
-  callQueue: Array,
+  callQueue: [{ floor: Number }],
 });
 
 export const ElevatorModel = mongoose.model("Elevator", elevatorSchema);
