@@ -16,34 +16,6 @@ router.post("/callElevator", async (req, res) => {
   const floor = req.body.floor;
   console.log("Received request body:", req.body);
 
-  if (!floor) {
-    console.log("Floor is missing. Sending 400 response.");
-    res.status(400).json({ message: "Floor is missing." });
-    return;
-  }
-
-  if (isNaN(floor)) {
-    console.log("Floor is not a number. Sending 400 response.");
-    res.status(400).json({ message: "Invalid floor. Must be a number." });
-    return;
-  }
-
-  if (floor < 0 || floor > 10) {
-    console.log("Floor is less than 0. Sending 400 response.");
-    res
-      .status(400)
-      .json({ message: "Invalid floor. Must be greater than or equal to 0." });
-    return;
-  }
-
-  // If the execution reaches here, the floor is valid
-
-  // if (!floor || isNaN(floor) || floor < 0) {
-  //   console.log("Invalid floor. Sending 400 response.");
-  //   res.status(400).json({ message: "Invalid floor." });
-  //   return;
-  // }
-
   try {
     await elevatorManager.handleElevatorCalls(floor);
     res.send(`Calling elevator to floor ${floor}`);

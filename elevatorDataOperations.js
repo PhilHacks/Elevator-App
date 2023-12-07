@@ -130,42 +130,76 @@ export async function isElevatorAvailableInDb() {
 export async function insertCallToQueue(elevatorNumber, callFloor) {
   const filter = { elevatorNumber: elevatorNumber };
   const update = { $push: { callQueue: { floor: callFloor } } };
+  console.log(`Updating elevator call queue: ${JSON.stringify(update)}`);
   await ElevatorModel.findByIdAndUpdate(filter, update);
 }
-export async function processQueue() {
-  const elevators = await ElevatorModel.find({
-    currentStatus: "idle",
-  });
-  const calls = await ElevatorModel.aggregate([
-    { $unwind: "$callQueue" },
-    { $sort: { "callQueue.floor": 1 } },
-  ]);
-  const movePromises = elevators.map(async (elevator) => {
-    const call = calls.find((callInList) =>
-      elevator.callQueue.some(
-        (callInQueue) => callInQueue.floor === callInList.floor
-      )
-    );
+// export async function processQueue() {
+//   const elevators = await ElevatorModel.find({
+//     currentStatus: "idle",
+//   });
+//   const calls = await ElevatorModel.aggregate([
+//     { $unwind: "$callQueue" },
+//     { $sort: { "callQueue.floor": 1 } },
+//   ]);
+//   const movePromises = elevators.map(async (elevator) => {
+//     const call = calls.find((callInList) =>
+//       elevator.callQueue.some(
+//         (callInQueue) => callInQueue.floor === callInList.floor
+//       )
+//     );
 
-    if (call) {
-      await callElevatorToFloor(
-        closestElevator.elevatorNumber,
-        call.callQueue.floor
-      );
-      await removeCallFromQueue(
-        closestElevator.elevatorNumber,
-        call.callQueue.floor
-      );
+//     if (call) {
+//       await callElevatorToFloor(
+//         closestElevator.elevatorNumber,
+//         call.callQueue.floor
+//       );
+//       await removeCallFromQueue(
+//         closestElevator.elevatorNumber,
+//         call.callQueue.floor
+//       );
+//       console.log(
+//         `Elevator ${closestElevator.elevatorNumber} dispatched to floor ${call.callQueue.floor}.`
+//       );
+//     }
+//   });
+//   await Promise.all(movePromises);
+// }
+export async function processQueue() {
+  try {
+    const elevators = await ElevatorModel.find({
+      currentStatus: { $in: ["idle", "moving_up", "moving_down"] },
+    });
+
+    console.log("Processing queue for elevators...");
+
+    for (const elevator of elevators) {
       console.log(
-        `Elevator ${closestElevator.elevatorNumber} dispatched to floor ${call.callQueue.floor}.`
+        `Elevator ${elevator.elevatorNumber} - Call Queue:`,
+        elevator.callQueue
       );
+
+      const call = elevator.callQueue.shift(); // Remove the first call from the queue
+
+      if (call) {
+        await callElevatorToFloor(elevator.elevatorNumber, call.floor);
+        console.log(
+          `Elevator ${elevator.elevatorNumber} dispatched to floor ${call.floor}.`
+        );
+      }
     }
-  });
-  await Promise.all(movePromises);
+
+    // Update the database after processing all elevators
+    const updatePromises = elevators.map((elevator) =>
+      updateElevatorDB(elevator.elevatorNumber, elevator.currentFloor, "idle")
+    );
+    await Promise.all(updatePromises);
+  } catch (error) {
+    console.error("An error occurred in processQueue:", error.message);
+  }
 }
 
-export async function removeCallFromQueue(elevatorObjectId, callFloor) {
-  const filter = { _id: elevatorObjectId };
+export async function removeCallFromQueue(elevatorNumber, callFloor) {
+  const filter = { elevatorNumber: elevatorNumber };
   const update = { $pull: { callQueue: { floor: callFloor } } };
   await ElevatorModel.findByIdAndUpdate(filter, update);
 }
