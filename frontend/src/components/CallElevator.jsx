@@ -56,6 +56,7 @@ const MessageContainer = styled.div`
 const ErrorMessage = styled.div`
   color: #dc3545;
   text-align: center;
+  font-weight: bold;
 `;
 
 function CallElevator({ onElevatorCall, callMessage }) {
@@ -64,14 +65,17 @@ function CallElevator({ onElevatorCall, callMessage }) {
 
   const submitCall = async () => {
     setFloor("");
-    if (floor) {
+    if (validateFloor(floor)) {
       await onElevatorCall(floor);
       setErrorMessage("");
     } else {
-      setErrorMessage(
-        "Please enter a floor number before calling the elevator."
-      );
+      setErrorMessage("Please enter a floor number between 1 and 10.");
     }
+  };
+
+  const validateFloor = (floor) => {
+    const floorNumber = parseInt(floor);
+    return !isNaN(floorNumber) && floorNumber >= 1 && floorNumber <= 10;
   };
 
   return (
