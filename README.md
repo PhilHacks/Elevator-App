@@ -7,7 +7,6 @@
 - [Project Features](#project-features)
 - [Project Structure](#project-structure)
 - [Technologies Used](#technologies-used)
-- [Testing with Postman](#testing-with-postman)
 
 ## Project Overview
 
@@ -101,10 +100,3 @@ This application offers several API endpoints for managing and tracking elevator
 - Express.js
 - MongoDB
 - Mongoose
-
-## Testing with Postman
-
-To test the API endpoints, download and import the [ElevatorApp Endpoints Postman Collection](https://www.postman.com/bold-space-679599/workspace/elevator-app-endpoints-test/overview) into Postman.
-
-- Download and install Postman if you haven't already.
-- Use the collection to send requests and test the API functionality.
