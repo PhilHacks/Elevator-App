@@ -11,7 +11,7 @@
 ## Project Overview
 
 **Project Name:** ElevatorApp  
-**Description:** ElevatorApp is a Node.js application for managing a network of elevators. It provides API endpoints for calling elevators to specific floors, checking elevator availability, and tracking elevator status. This version uses MongoDB with Mongoose for data storage and management.
+**Description:** ElevatorApp is a Node.js application for managing a network of elevators. This version uses MongoDB with Mongoose for data storage and management. It provides API endpoints for calling elevators to specific floors, checking elevator availability, and tracking elevator status.  The frontend, built with React, fully interacts with the functionalities of the backend.
 
 ## Installation and Setup
 
@@ -116,16 +116,6 @@ frontend/
 ![Elevator App Interface](./backend/img/appUI.png)
 
 ## Technologies Used
+- Backend: Node.js, Express.js, MongoDB (Mongoose)
+- Frontend: React, Axios, Styled-Components.
 
-### Languages:
-
-- JavaScript (Node.js)
-
-### Frameworks/Libraries:
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- React
-  
