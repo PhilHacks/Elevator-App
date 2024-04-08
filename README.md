@@ -77,12 +77,12 @@ This application offers several API endpoints for managing and tracking elevator
 ```
 backend/
 ├── src/
-│   ├── crudOperations.js  # Functions to handle CRUD operations for elevator calls.
-│   ├── dbConnect.js       # Configuration for MongoDB database connection.
-│   ├── elevatorManager.js # Core logic for managing the elevator system.
-│   ├── elevatorModel.js   # Mongoose schema and model for elevator data.
-│   └── routes.js          # API route definitions.
-├── main.js                # The entry point of the application where the Express server is set up.
+│   ├── crudOperations.js  
+│   ├── dbConnect.js       
+│   ├── elevatorManager.js 
+│   ├── elevatorModel.js   
+│   └── routes.js         
+├── main.js                
 
 ```
 
