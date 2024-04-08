@@ -100,3 +100,5 @@ This application offers several API endpoints for managing and tracking elevator
 - Express.js
 - MongoDB
 - Mongoose
+- React
+  
