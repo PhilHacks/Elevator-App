@@ -59,18 +59,11 @@ MONGODB_URI=mongodb://localhost:27017/elevatorSystem
 
 This application offers several API endpoints for managing and tracking elevators:
 
-- **Call Elevator:**
-  - **Endpoint:** `/callElevator`
-  - **Method:** POST
-  - **Description:** Request an elevator to a specified floor. Include the desired floor in the request body as `{ "floor": number }`.
-- **Elevator Status:**
-  - **Endpoint:** `/elevator/status`
-  - **Method:** GET
-  - **Description:** Get the status of all elevators, including their current floor and availability.
-- **Check Elevator Availability:**
-  - **Endpoint:** `/elevator/available/:elevatorId`
-  - **Method:** GET
-  - **Description:** Check if a specific elevator is available by providing the elevator ID in the URL.
+- `POST /callElevator`                 - Call an elevator to a specific floor. 
+- `GET /elevator/status`               - Retrieve the status of all elevators directly from MongoDB.
+- `GET /callqueue/`                    - Fetch the call queue table that is stored in MongoDB.
+- `GET /elevator/available/:elevatorId` - Check if a specific elevator is available by querying its status in MongoDB.
+- `PUT /updateElevatorStatus`          - Update the status of an elevator
 
 ## Project Structure
 
