@@ -74,6 +74,8 @@ This application offers several API endpoints for managing and tracking elevator
 
 ## Project Structure
 
+#### Backend
+
 ```
 backend/
 ├── src/
@@ -85,6 +87,8 @@ backend/
 ├── main.js                
 
 ```
+
+#### Frontend
 
 ```
 frontend/
