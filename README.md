@@ -74,6 +74,7 @@ This application offers several API endpoints for managing and tracking elevator
 
 ## Project Structure
 
+```
 backend/
 ├── src/
 │   ├── crudOperations.js  # Functions to handle CRUD operations for elevator calls.
@@ -83,6 +84,9 @@ backend/
 │   └── routes.js          # API route definitions.
 ├── main.js                # The entry point of the application where the Express server is set up.
 
+```
+
+```
 frontend/
 ├── src/
 │   ├── components/
@@ -101,7 +105,7 @@ frontend/
 ├── README.md
 ├── package-lock.json
 └── package.json
-
+```
 
 ## Image of Elevator App
 
