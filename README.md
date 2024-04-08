@@ -85,6 +85,10 @@ This application offers several API endpoints for managing and tracking elevator
   - `routes.js`: API route definitions.
 - `main.js`: The entry point of the application where the Express server is set up.
 
+## Image of Elevator App
+
+![Elevator App Interface](./backend/img/appUI.png)
+
 ## Technologies Used
 
 ### Languages:
