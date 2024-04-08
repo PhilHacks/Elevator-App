@@ -37,6 +37,11 @@ After installation, the application will connect to MongoDB using a URI defined 
 MONGODB_URI=mongodb://localhost:27017/elevatorSystem
 ```
 
+
+
+
+#### Setting Up the Application
+
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/PhilHacks/Elevator-App-MongoDb.git
@@ -45,15 +50,27 @@ MONGODB_URI=mongodb://localhost:27017/elevatorSystem
    ```bash
    cd Elevator-App-MongoDb
    ```
-3. **Install the Required Dependencies:**
+3. **Install Dependencies:**
    ```bash
    npm install
    ```
-4. **Start the Server:**
+
+4. **Start the Servers:**
+   Launch both the backend and frontend servers with a simple set of commands. First, start the backend:
    ```bash
+   cd backend
    npm start
    ```
-   The ElevatorApp server will now be running, and you can access it at `http://localhost:3000` in your web browser or postman.
+   This command runs the backend server, accessible at `http://localhost:5000`. 
+
+   Next, in a new terminal window, start the frontend by navigating to the frontend directory from the project root and running:
+   ```bash
+   cd frontend
+   npm start
+   ```
+   This will open the frontend interface in your default web browser, typically at `http://localhost:3000`. If it doesn't automatically open, manually navigate to this URL.
+
+
 
 ## Project Features
 
