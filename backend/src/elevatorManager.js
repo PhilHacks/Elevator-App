@@ -4,7 +4,7 @@ import { updateElevatorDB, updateElevatorFloorOnly } from "./crudOperations.js";
 class ElevatorManager {
   constructor() {
     this.numberOfFloors = 10;
-    this.floorTravelTimeMs = 2000;
+    this.floorTravelTimeMs = 3000;
     this.checkQueueInterval = setInterval(() => this.processQueue(), 500); // Check every 0.5 seconds
   }
 
