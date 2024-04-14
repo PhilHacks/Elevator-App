@@ -7,12 +7,11 @@
 - [Project Features](#project-features)
 - [Project Structure](#project-structure)
 - [Technologies Used](#technologies-used)
-- [Testing with Postman](#testing-with-postman)
 
 ## Project Overview
 
 **Project Name:** ElevatorApp  
-**Description:** ElevatorApp is a Node.js application for managing a network of elevators. It provides API endpoints for calling elevators to specific floors, checking elevator availability, and tracking elevator status. This version uses MongoDB with Mongoose for data storage and management.
+**Description:** ElevatorApp is a Node.js application for managing a network of elevators. This version uses MongoDB with Mongoose for data storage and management. It provides API endpoints for calling elevators to specific floors, checking elevator availability, and tracking elevator status.  The frontend, built with React, fully interacts with the functionalities of the backend.
 
 ## Installation and Setup
 
@@ -38,6 +37,11 @@ After installation, the application will connect to MongoDB using a URI defined 
 MONGODB_URI=mongodb://localhost:27017/elevatorSystem
 ```
 
+
+
+
+#### Setting Up the Application
+
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/PhilHacks/Elevator-App-MongoDb.git
@@ -46,61 +50,82 @@ MONGODB_URI=mongodb://localhost:27017/elevatorSystem
    ```bash
    cd Elevator-App-MongoDb
    ```
-3. **Install the Required Dependencies:**
+3. **Install Dependencies:**
    ```bash
    npm install
    ```
-4. **Start the Server:**
+
+4. **Start the Servers:**
+   Launch both the backend and frontend servers with a simple set of commands. First, start the backend:
    ```bash
+   cd backend
    npm start
    ```
-   The ElevatorApp server will now be running, and you can access it at `http://localhost:3000` in your web browser or postman.
+   This command runs the backend server, accessible at `http://localhost:5000`. 
+
+   Next, in a new terminal window, start the frontend by navigating to the frontend directory from the project root and running:
+   ```bash
+   cd frontend
+   npm start
+   ```
+   This will open the frontend interface in your default web browser, typically at `http://localhost:3000`. If it doesn't automatically open, manually navigate to this URL.
+
+
 
 ## Project Features
 
 This application offers several API endpoints for managing and tracking elevators:
 
-- **Call Elevator:**
-  - **Endpoint:** `/callElevator`
-  - **Method:** POST
-  - **Description:** Request an elevator to a specified floor. Include the desired floor in the request body as `{ "floor": number }`.
-- **Elevator Status:**
-  - **Endpoint:** `/elevator/status`
-  - **Method:** GET
-  - **Description:** Get the status of all elevators, including their current floor and availability.
-- **Check Elevator Availability:**
-  - **Endpoint:** `/elevator/available/:elevatorId`
-  - **Method:** GET
-  - **Description:** Check if a specific elevator is available by providing the elevator ID in the URL.
+- `POST /callElevator`                 - Call an elevator to a specific floor. 
+- `GET /elevator/status`               - Retrieve the status of all elevators directly from MongoDB.
+- `GET /callqueue/`                    - Fetch the call queue table that is stored in MongoDB.
+- `GET /elevator/available/:elevatorId` - Check if a specific elevator is available by querying its status in MongoDB.
+- `PUT /updateElevatorStatus`          - Update the status of an elevator
 
 ## Project Structure
 
-### Directory Structure:
+#### Backend
 
-- `src/`: Source code directory.
-  - `crudOperations.js`: Functions to handle CRUD operations for elevator calls.
-  - `dbConnect.js`: Configuration for MongoDB database connection.
-  - `elevatorManager.js`: Core logic for managing the elevator system.
-  - `elevatorModel.js`: Mongoose schema and model for elevator data.
-  - `routes.js`: API route definitions.
-- `main.js`: The entry point of the application where the Express server is set up.
+```
+backend/
+├── src/
+│   ├── crudOperations.js  
+│   ├── dbConnect.js       
+│   ├── elevatorManager.js 
+│   ├── elevatorModel.js   
+│   └── routes.js         
+├── main.js                
+
+```
+
+#### Frontend
+
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── CallElevator.jsx
+│   │   ├── CallQueue.jsx
+│   │   ├── ElevatorStatus.jsx
+│   │   └── UpdateStatus.jsx
+│   ├── services/
+│   │   └── ElevatorServices.js
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── index.css
+│   └── index.js
+├── .gitignore
+├── README.md
+├── package-lock.json
+└── package.json
+```
+
+## Image of Elevator App
+
+![Elevator App Interface](./backend/img/appUI.png)
 
 ## Technologies Used
+- Backend: Node.js, Express.js, MongoDB (Mongoose)
+- Frontend: React, Axios, Styled-Components.
 
-### Languages:
-
-- JavaScript (Node.js)
-
-### Frameworks/Libraries:
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-
-## Testing with Postman
-
-To test the API endpoints, download and import the [ElevatorApp Endpoints Postman Collection](https://www.postman.com/bold-space-679599/workspace/elevator-app-endpoints-test/overview) into Postman.
-
-- Download and install Postman if you haven't already.
-- Use the collection to send requests and test the API functionality.
