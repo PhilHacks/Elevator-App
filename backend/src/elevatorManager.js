@@ -1,8 +1,9 @@
 import { ElevatorModel } from "./elevatorModel.js";
 import { updateElevatorDB, updateElevatorFloorOnly } from "./crudOperations.js";
 
-class ElevatorManager {
-  constructor() {
+export default class ElevatorManager {
+  constructor(io) {
+    this.io = io;
     this.numberOfFloors = 10;
     this.floorTravelTimeMs = 3000;
     this.checkQueueInterval = setInterval(() => this.processQueue(), 500); // Check every 0.5 seconds
@@ -121,10 +122,17 @@ class ElevatorManager {
         const idleElevator = await this.findClosestElevator(oldestCall);
         if (idleElevator) {
           await this.moveToFloor(idleElevator.elevatorId, oldestCall);
+
           // Remove the call from the queue of all elevators
           await ElevatorModel.updateMany(
             {},
             { $pull: { callQueue: oldestCall } }
+          );
+          this.io.emit("elevatorArrival", {
+            message: `Elevator ${idleElevator.elevatorId} arrived at floor ${oldestCall}`,
+          });
+          console.log(
+            `Elevator ${idleElevator.elevatorId} arrived at floor ${oldestCall}`
           );
         }
       }
@@ -202,10 +210,6 @@ class ElevatorManager {
 
     // Update the elevator's status to "idle" after reaching the destination
     await updateElevatorDB(elevator.elevatorId, "idle", destinationFloor);
-    return {
-      message: `Elevator ${elevator.elevatorId} has arrived to floor ${destinationFloor}`,
-    };
+    return;
   }
 }
-
-export default ElevatorManager;

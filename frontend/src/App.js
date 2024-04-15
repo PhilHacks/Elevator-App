@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
 import ElevatorStatus from "./components/ElevatorStatus";
 import CallElevator from "./components/CallElevator";
 import UpdateStatus from "./components/UpdateStatus";
@@ -54,6 +55,7 @@ function App() {
   const [statusMessage, setStatusMessage] = useState("");
   const [queue, setQueue] = useState([]);
   const [callMessage, setCallMessage] = useState("");
+  const [socketMessage, setSocketMessage] = useState("");
   const [updateMessage, setUpdateMessage] = useState("");
   const [showUpdateStatus, setShowUpdateStatus] = useState(false);
 
@@ -117,6 +119,20 @@ function App() {
   };
 
   useEffect(() => {
+    const socket = io("http://localhost:5000");
+
+    socket.on("elevatorArrival", (data) => {
+      console.log("Elevator arrived:", data);
+      setSocketMessage(data.message);
+      setTimeout(() => setSocketMessage(""), 3000);
+    });
+
+    return () => {
+      socket.off("elevatorArrival");
+    };
+  }, []);
+
+  useEffect(() => {
     fetchElevatorStatus();
     const statusInterval = setInterval(fetchElevatorStatus, 2000);
     return () => clearInterval(statusInterval);
@@ -130,6 +146,7 @@ function App() {
       <CallElevator
         onElevatorCall={handleCallElevator}
         callMessage={callMessage}
+        socketMessage={socketMessage}
       />
       <MaintenanceBtn onClick={toggleUpdateStatusVisibility}>
         Maintenance Features

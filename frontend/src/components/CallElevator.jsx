@@ -59,7 +59,7 @@ const ErrorMessage = styled.div`
   font-weight: bold;
 `;
 
-function CallElevator({ onElevatorCall, callMessage }) {
+function CallElevator({ onElevatorCall, callMessage, socketMessage }) {
   const [floor, setFloor] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -93,6 +93,7 @@ function CallElevator({ onElevatorCall, callMessage }) {
       <MessageContainer>
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         {callMessage.message && <div>{callMessage.message}</div>}
+        {socketMessage && <div>{socketMessage}</div>}
       </MessageContainer>
     </CallContainer>
   );
