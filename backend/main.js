@@ -18,8 +18,6 @@ const io = new SocketIO(httpServer, {
   },
 });
 
-const elevatorManager = new ElevatorManager(io);
-
 io.on("connection", (socket) => {
   console.log("New client connected:", socket.id);
 
