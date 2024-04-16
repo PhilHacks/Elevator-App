@@ -70,6 +70,9 @@ function CallElevator({ onElevatorCall, callMessage, socketMessage }) {
       setErrorMessage("");
     } else {
       setErrorMessage("Please enter a floor number between 1 and 10.");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 2000);
     }
   };
 
